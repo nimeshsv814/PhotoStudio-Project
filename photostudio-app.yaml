@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: photostudio-app
+  namespace: nimesh-ns-photo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: photostudio
+  template:
+    metadata:
+      labels:
+        app: photostudio
+    spec:
+      containers:
+      - name: photostudio-cont
+        image: nimeshsv814/recruitment-app:v1.1.1
+        ports:
+        - containerPort: 3000
+        env:
+          - name: MONGODB_AUTH_URI
+            valueFrom:
+              secretKeyRef:
+                name: photostudio-secret
+                key: MONGODB_AUTH_URI
+          - name: MONGODB_FEEDBACK_URI
+            valueFrom:
+              secretKeyRef:
+                name: photostudio-secret
+                key: MONGODB_FEEDBACK_URI
+          - name: MONGODB_URI
+            valueFrom:
+              secretKeyRef:
+                name: photostudio-secret
+                key: MONGODB_URI
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: photostudio
+  namespace: nimesh-ns-photo
+spec:
+  selector:
+    app: photostudio
+  ports:
+  - port: 3000
+    targetPort: 3000
+    nodePort: 30088
+  type: NodePort
