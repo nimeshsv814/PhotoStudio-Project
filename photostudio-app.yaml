@@ -29,7 +29,7 @@ spec:
               secretKeyRef:
                 name: photostudio-secret
                 key: MONGODB_FEEDBACK_URI
-          - name: MONGODB_URI
+          - name: MONGO_URI
             valueFrom:
               secretKeyRef:
                 name: photostudio-secret
