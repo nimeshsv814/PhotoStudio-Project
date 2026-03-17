@@ -2,7 +2,7 @@ apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
   name: default-pool
-  namespace: nimesh-ns-photo
+  namespace: metallb-system
 spec:
   addresses:
   - 10.0.0.1-10.0.0.20
@@ -13,4 +13,4 @@ apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
 metadata:
   name: l2-advertisement
-  namespace: nimesh-ns-photo
+  namespace: metallb-system
