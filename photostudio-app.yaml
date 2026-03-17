@@ -33,7 +33,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: photostudio-secret
-                key: MONGO_URI
+                key: MONGODB_URI
 
 ---
 apiVersion: v1
