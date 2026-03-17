@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: haproxy
+spec:
+  controller: haproxy.org/ingress-controller/haproxy
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: studio-ingress
+  namespace: nimesh-ns-photo
+  annotations:
+    kubernetes.io/ingress.class: "haproxy"
+    haproxy-ingress.github.io/rewrite-target: /
+spec:
+  ingressClassName: haproxy
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: photostudio
+            port:
+              number: 3000
